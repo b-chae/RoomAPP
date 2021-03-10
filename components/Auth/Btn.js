@@ -8,7 +8,7 @@ import colors from "../../colors";
 const {width, height} = Dimensions.get("screen")
 const Button = styled.View`
     border: 1px solid ${props => (props.accent ? "transparent" : colors.black)};
-    width: ${width / 2}px;
+    width: ${width / 1.5}px;
     background-color: ${props => (props.accent ? colors.green : "transparent")};
     padding: 13px 0px;
     align-items: center;
