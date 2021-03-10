@@ -25,7 +25,7 @@ export default function App() {
   const loadAssets = () => {
     const images = [
       require("./assets/loading.jpg"),
-      "http://logok.org/wp-content/uploads/2014/07/airbnb-logo-belo-219x286.png"
+      "https://cdn.logo.com/hotlink-ok/logo-social-sq.png"
     ];
     const fonts = [
       Ionicons.font
