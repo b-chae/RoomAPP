@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import PropTypes from "prop-types"
 import { Dimensions } from "react-native";
@@ -17,13 +17,14 @@ const Container = styled.TextInput`
     background-color: white;
 `;
 
-const Input = ({value, placeholder, isPassword=false, autoCapitalize="none", stateFn}) => (
+const Input = ({value, placeholder, isPassword=false, autoCapitalize="none", stateFn, keyboardType}) => (
     <Container
         value={value}
         placeholder={placeholder}
         secureTextEntry={isPassword}
         autoCapitalize={autoCapitalize}
         onChangeText={(text) => stateFn(text)}
+        keyboardType={keyboardType}
     />
 );
 

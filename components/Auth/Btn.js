@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native"
 import PropTypes from "prop-types"
-import { Dimensions } from "react-native";
+import { ActivityIndicator, Dimensions } from "react-native";
 import colors from "../../colors";
 
 const {width, height} = Dimensions.get("screen")
@@ -22,10 +22,10 @@ const Text = styled.Text`
 `
 
 
-const Btn = ({onPress, text, accent = false}) => (
-    <TouchableOpacity onPress={onPress}>
+const Btn = ({loading, onPress, text, accent = false}) => (
+    <TouchableOpacity onPress={loading? null: onPress}>
         <Button accent={accent}>
-            <Text accent={accent}>{text}</Text>
+            {loading ? <ActivityIndicator color={accent ? "white": "black"}/> : <Text accent={accent}>{text}</Text>}
         </Button>
     </TouchableOpacity>
 )
@@ -33,7 +33,8 @@ const Btn = ({onPress, text, accent = false}) => (
 Btn.propTypes = {
     onPress : PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    accent: PropTypes.bool
+    accent: PropTypes.bool,
+    loading: PropTypes.bool
 }
 
 export default Btn;

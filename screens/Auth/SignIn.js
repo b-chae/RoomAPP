@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { KeyboardAvoidingView, StatusBar } from "react-native";
+import { Alert, KeyboardAvoidingView, StatusBar } from "react-native";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/native"
 import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input"
+import { userLogin } from "../../redux/usersSlice";
+import { isEmail } from "../../utils";
 import DismissKeyboard from "./DismissKeyboard"
 
 const Container = styled.View`
@@ -18,10 +21,32 @@ const InputContainer = styled.View`
 
 const TextInput = styled.TextInput``;
 
-export default () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const handleSubmit = () => alert(`${username} ${password}`)
+export default ({route:{params}}) => {
+    const dispatch = useDispatch();
+    const [email, setEmail] = useState(params?.email);
+    const [password, setPassword] = useState(params?.password);
+    const isFormValid = () =>{
+        if(email === "" || password === ""){
+            Alert("All fields are required.")
+            return false;
+        }
+        if(!isEmail(email)){
+            Alert("Email is invalid");
+            return false;
+        }
+        return true;
+    }
+    const handleSubmit = () => {
+        if(!isFormValid()){
+            return;
+        }
+        dispatch(userLogin(
+            {
+                username: email,
+                password
+            }
+        ))
+    };
 
     return (
     <DismissKeyboard>
@@ -31,9 +56,10 @@ export default () => {
         <InputContainer>
             <Input
                 autoCapitalize="none"
-                value={username}
-                placeholder="Username"
-                stateFn={setUsername}
+                value={email}
+                placeholder="Email"
+                keyboardType="email-address"
+                stateFn={setEmail}
             ></Input>
             <Input 
                 onChangeText={(password) => setPassword(password)}
